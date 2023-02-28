@@ -15,11 +15,11 @@ variable "environment" {
   description = "Definition of environment for the deployment."
 }
 
-# variable "prefix" {
-#   type        = string
-#   default     = "001"
-#   description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
-# }
+variable "prefix" {
+  type        = string
+  default     = "001"
+  description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
+}
 
 variable "project" {
   type        = string
