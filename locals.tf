@@ -1,6 +1,6 @@
 locals {
   tags = {
-    Company = var.project
+    Company     = var.project
     Environment = var.environment
   }
 }
