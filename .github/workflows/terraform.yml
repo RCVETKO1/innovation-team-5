@@ -1,11 +1,9 @@
 name: 'Terraform'
 
 on:
-  push:
-    branches:
-    - main
+  repository_dispatch:
+    types: do-something
   pull_request:
-  workflow_dispatch:
   
 permissions:
   contents: read
@@ -14,6 +12,7 @@ jobs:
   terraform:
     name: 'Terraform'
     env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
