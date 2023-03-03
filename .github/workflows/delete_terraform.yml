@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform Delete'
 
 on:
   repository_dispatch:

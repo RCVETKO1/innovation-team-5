@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform Create'
 
 on:
   repository_dispatch:
@@ -43,3 +43,4 @@ jobs:
     # Apply Terraform changes
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
+
