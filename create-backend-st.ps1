@@ -39,10 +39,3 @@ az storage container create `
 #     --role="Contributor" `
 #     --scopes="/subscriptions/SUBSCRIPTION_ID" `
 #     --name="GitHub-Actions"
-
-
-Invoke-WebRequest -H "Accept: application/vnd.github.everest-preview+json" `
-    -H "Authorization: token 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" `
-    --request POST `
-    --data '{"event_type": "do-something"}' `
-    "https://api.github.com/repos/RCVETKO1/innovation-team-5/dispatches"
