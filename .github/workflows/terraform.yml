@@ -38,17 +38,14 @@ jobs:
       run: terraform plan -input=false
       
     - name: Terraform Apply
-      if: ${{ github.event.client_payload.action }} == 'create' && 'update'
-      run: terraform apply -auto-approve -input=false
-      
-    - name: Terraform Apply
-      if: ${{ github.event.client_payload.action }} == 'read'
-      run: terraform show
-      
-    - name: Terraform Apply
-      if: ${{ github.event.client_payload.action }} == 'delete'
-      run: terraform apply -destroy -auto-approve -input=false
+      if: ${{ github.event.client_payload.action }} == 'create'
+      run: |
+        write-output ${{ github.event.client_payload.action }}
     
+    - name: Terraform Show
+      if: ${{ github.event.client_payload.action }} == 'read'
+      run: |
+        write-output ${{ github.event.client_payload.action }}
 
         
 
