@@ -19,7 +19,6 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ACTION: ${{ github.event.client_payload.action }}
     runs-on: ubuntu-latest
-    environment: production
         
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -38,11 +37,12 @@ jobs:
       run: terraform plan -input=false
       
     - name: Terraform Apply
-      if: ${{ github.event.client_payload.action }} == 'create'
+      id: apply
+      if: github.event.client_payload.action == 'create'
       run: terraform apply -auto-approve -input=false
     
     - name: Terraform Show
-      if: ${{ github.event.client_payload.action }} == 'read'
+      if: github.event.client_payload.action == 'read'
       run: terraform show
 
         
