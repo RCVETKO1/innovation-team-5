@@ -17,6 +17,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ACTION: ${{ github.event.client_payload.action }}
     runs-on: ubuntu-latest
     environment: production
         
@@ -31,8 +32,6 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       
     - name: Terraform Apply
-      env:
-        ACTION: ${{ github.event.client_payload.action }}
       run: |
         $Action = $env:ACTION
         Write-Host $Action
