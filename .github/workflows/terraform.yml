@@ -2,7 +2,7 @@ name: 'Terraform Create'
 
 on:
   repository_dispatch:
-    types: [create_azure_resources]
+    types: [azure_resources]
 
   workflow_dispatch:
   
@@ -11,7 +11,7 @@ permissions:
   
 jobs:
   terraform:
-    name: 'Terraform Create'
+    name: 'CRUD Azure resources'
     env:
       ACTION: ${{ github.event.client_payload.action }}
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -23,8 +23,9 @@ jobs:
     
     # Use the Bash shell regardless of whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
-      run:
+      run: |
         shell: bash
+        $Action = $env:ACTION
         
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -35,13 +36,9 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -input=false
-    # Apply Terraform changes
     - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false
+      id: apply
+      run: terraform init && terraform validate && terraform plan -input=false && terraform apply -auto-approve -input=false
 
