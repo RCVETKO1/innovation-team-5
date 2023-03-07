@@ -36,7 +36,6 @@ jobs:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       
     - name: Terraform Apply
-      id: apply
       env:
         ACTION: ${{ github.event.client_payload.action }}
       run: |
