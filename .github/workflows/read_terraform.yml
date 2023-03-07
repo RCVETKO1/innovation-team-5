@@ -1,4 +1,4 @@
-name: 'Terraform Create'
+name: 'Terraform Read'
 
 on:
   repository_dispatch:
