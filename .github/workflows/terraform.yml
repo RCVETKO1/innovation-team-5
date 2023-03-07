@@ -1,4 +1,4 @@
-name: 'Terraform Create'
+name: 'Terraform CRUD'
 
 on:
   repository_dispatch:
@@ -13,7 +13,6 @@ jobs:
   terraform:
     name: 'CRUD Azure resources'
     env:
-      ACTION: ${{ github.event.client_payload.action }}
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -35,9 +34,19 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      
     - name: Terraform Apply
       id: apply
-      run: terraform init && terraform validate && terraform plan -input=false && terraform apply -auto-approve -input=false
+      env:
+        ACTION: ${{ github.event.client_payload.action }}
+      run: |
+        $Action = $env:ACTION
+        Switch ($Action)
+        {
+          "create" { terraform init && terraform validate && terraform plan -input=false && terraform apply -auto-approve -input=false }
+          "read" { terraform init && terraform validate && terraform plan -input=false && terraform show }
+          "update" { terraform init && terraform validate && terraform plan -input=false && terraform apply -auto-approve -input=false }
+          "delete" { terraform init && terraform validate && terraform plan -input=false && terraform apply -destroy -auto-approve -input=false }
+        }
+        
 
