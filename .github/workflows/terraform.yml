@@ -35,9 +35,7 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
     - name: Terraform Apply
-      run: |
-        $Action = $env:ACTION
-        Write-Host $Action
+      run: terraform init && terraform validate && terraform plan -input=false && terraform apply -auto-approve -input=false
 
         
 
