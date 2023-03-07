@@ -11,7 +11,7 @@ permissions:
   
 jobs:
   terraform:
-    name: 'CRUD Azure resources'
+    name: 'Terraform CRUD'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -51,5 +51,3 @@ jobs:
     - name: Delete
       if: github.event.client_payload.action == 'delete'
       run: terraform apply -destroy -auto-approve -input=false
-        
-
