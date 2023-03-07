@@ -40,12 +40,12 @@ jobs:
     - name: Terraform Apply
       if: ${{ github.event.client_payload.action }} == 'create'
       run: |
-        write-output ${{ github.event.client_payload.action }}
+        terraform apply -auto-approve -input=false
     
     - name: Terraform Show
       if: ${{ github.event.client_payload.action }} == 'read'
       run: |
-        write-output ${{ github.event.client_payload.action }}
+        terraform show
 
         
 
