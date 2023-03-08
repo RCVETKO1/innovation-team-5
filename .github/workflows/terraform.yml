@@ -55,4 +55,4 @@ jobs:
     - name: Test
       if: github.event.client_payload.action == 'test'
       run: |
-        Write-Host github.event.client_payload
+        Write-Host ${{ github.event.client_payload }}
