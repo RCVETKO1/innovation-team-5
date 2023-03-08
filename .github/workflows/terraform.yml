@@ -51,4 +51,4 @@ jobs:
 
     - name: Delete
       if: github.event.client_payload.action == 'delete'
-      run: terraform apply -destroy -auto-approve -input=false
+      run: terraform apply -var 'service=${{ github.event.client_payload.serviceName }}' -destroy -auto-approve -input=false
