@@ -5,7 +5,7 @@ variable "location" {
 
 variable "service" {
   type        = string
-  default     = "innovation5"
+  default     = "invteam5"
   description = "Definition of application deployment is subjected to."
 }
 
