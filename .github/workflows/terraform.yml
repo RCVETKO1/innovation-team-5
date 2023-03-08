@@ -32,8 +32,9 @@ jobs:
       run: terraform init
     - name: Terraform Validate
       run: terraform validate
+
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: terraform plan -var 'service=${{ github.event.client_payload.serviceName }}' -input=false
       
     - name: Create
       id: apply
@@ -54,5 +55,4 @@ jobs:
 
     - name: Test
       if: github.event.client_payload.action == 'test'
-      run: |
-        write-output ${{ github.event.client_payload.resourceGroupName }}
+      run: terraform apply -var ${{ github.event.client_payload.resourceGroupName }} -auto-approve -input=false
