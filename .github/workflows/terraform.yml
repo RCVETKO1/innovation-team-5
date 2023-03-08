@@ -34,7 +34,7 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: terraform plan -var 'service=${{ github.event.client_payload.serviceName }}' -input=false
       
     - name: Create
       id: apply
