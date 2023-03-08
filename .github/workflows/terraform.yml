@@ -39,7 +39,7 @@ jobs:
     - name: Create
       id: apply
       if: github.event.client_payload.action == 'create'
-      run: terraform apply 'service=${{ github.event.client_payload.serviceName }}' -auto-approve -input=false
+      run: terraform apply -var 'service=${{ github.event.client_payload.serviceName }}' -auto-approve -input=false
     
     - name: Read
       if: github.event.client_payload.action == 'read'
