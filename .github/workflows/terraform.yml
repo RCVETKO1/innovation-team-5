@@ -52,7 +52,3 @@ jobs:
     - name: Delete
       if: github.event.client_payload.action == 'delete'
       run: terraform apply -destroy -auto-approve -input=false
-
-    - name: Test
-      if: github.event.client_payload.action == 'test'
-      run: terraform apply -var ${{ github.event.client_payload.resourceGroupName }} -auto-approve -input=false
