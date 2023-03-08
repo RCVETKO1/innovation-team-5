@@ -34,7 +34,7 @@ jobs:
       run: terraform validate
 
     - name: Terraform Plan
-      run: terraform plan -var 'service=${{ github.event.client_payload.serviceName }}' -input=false
+      run: terraform plan -input=false
       
     - name: Create
       id: apply
@@ -47,7 +47,7 @@ jobs:
 
     - name: Update
       if: github.event.client_payload.action == 'update'
-      run: terraform apply -auto-approve -input=false
+      run: terraform apply -var 'service=${{ github.event.client_payload.serviceName }}' -auto-approve -input=false
 
     - name: Delete
       if: github.event.client_payload.action == 'delete'
