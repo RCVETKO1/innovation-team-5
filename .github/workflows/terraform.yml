@@ -55,4 +55,4 @@ jobs:
     - name: Test
       if: github.event.client_payload.action == 'test'
       run: |
-        write-output github.event.client_payload.resourceGroupName
+        write-output ${{ github.event.client_payload.resourceGroupName }}
